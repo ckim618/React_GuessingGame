@@ -6,7 +6,8 @@ class Game extends Component {
 
         this.state = {
             randomNumber: this.randomGeneratedNumber(),
-            userGuess: null
+            userGuess: '',
+            gameInfo: null
         }
         this.resetGame = this.resetGame.bind(this);
         this.handleGuess = this.handleGuess.bind(this);
@@ -19,34 +20,55 @@ class Game extends Component {
 
     handleGuess(event) {
         event.preventDefault();
-        console.log('Checking the guess');
+        const {userGuess, randomNumber} = this.state;
+        if(userGuess < randomNumber) {
+            console.log('Number is too low');
+            this.setState({
+                gameInfo: 'Number is too low'
+            });
+        } else if (userGuess > randomNumber) {
+            console.log('Number is too high');
+            this.setState({
+                gameInfo: 'Number is too high'
+            });
+        } else {
+            console.log("You've guessed it!");
+            this.setState({
+                gameInfo: "You've guessed the number!"
+            });
+        }
     }
 
     handleInputChange(event) {
         event.preventDefault();
         this.setState({
             userGuess: event.target.value
-        })
+        });
     }
+
 
     resetGame(event) {
         event.preventDefault();
         console.log('Reset was clicked');
         this.setState({
-            randomNumber: this.randomGeneratedNumber()
+            randomNumber: this.randomGeneratedNumber(),
+            userGuess: '',
+            gameInfo: null
         });
     }
 
     render(){
+        console.log('Current state is ', this.state);
+        const {userGuess} = this.state;
         return (
             <div className="text-center">
                 <h1 className="text-center my-3">Guess A Number Between 1-10</h1>
-                <form onClick={this.handleGuess}>
-                    <input type="number"/>
+                <form onSubmit={this.handleGuess} >
+                    <input onChange={this.handleInputChange} value={userGuess} type="number"/>
                 </form>
-                <button onClick={this.resetGame} className="btn btn-outline-danger btn-lg">Reset</button>
-                <button onClick={this.handleInputChange} className="btn btn-outline-success btn-lg">Guess</button>
-                <h1>Your Guess Info</h1>
+                <button onClick={this.resetGame} className="btn btn-outline-danger btn-lg" type="button">Reset</button>
+                <button onClick={this.handleGuess}  className="btn btn-outline-success btn-lg">Guess</button>
+                <h1>{this.state.gameInfo}</h1>
             </div>
         )
     }
