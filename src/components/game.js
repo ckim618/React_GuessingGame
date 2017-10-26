@@ -5,19 +5,28 @@ class Game extends Component {
         super(props);
 
         this.state = {
-            randomNumber: this.randomGeneratedNumber()
+            randomNumber: this.randomGeneratedNumber(),
+            userGuess: null
         }
         this.resetGame = this.resetGame.bind(this);
         this.handleGuess = this.handleGuess.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
     randomGeneratedNumber() {
         const pickedNumber = Math.floor(Math.random()*10 + 1);
         return pickedNumber;
     }
 
-    handleGuess() {
-        console.log('Checking the guess')
-        if()
+    handleGuess(event) {
+        event.preventDefault();
+        console.log('Checking the guess');
+    }
+
+    handleInputChange(event) {
+        event.preventDefault();
+        this.setState({
+            userGuess: event.target.value
+        })
     }
 
     resetGame(event) {
@@ -29,7 +38,6 @@ class Game extends Component {
     }
 
     render(){
-        console.log(this.state);
         return (
             <div className="text-center">
                 <h1 className="text-center my-3">Guess A Number Between 1-10</h1>
@@ -37,7 +45,7 @@ class Game extends Component {
                     <input type="number"/>
                 </form>
                 <button onClick={this.resetGame} className="btn btn-outline-danger btn-lg">Reset</button>
-                <button className="btn btn-outline-success btn-lg">Guess</button>
+                <button onClick={this.handleInputChange} className="btn btn-outline-success btn-lg">Guess</button>
                 <h1>Your Guess Info</h1>
             </div>
         )
