@@ -9,12 +9,15 @@ class Game extends Component {
             history: [],
             randomNumber: this.randomGeneratedNumber(),
             userGuess: '',
-            gameInfo: null
+            gameInfo: null,
+            guessCounter: 0,
+            lowestScore: localStorage.getItem('lowestScore') || '',
         }
         this.resetGame = this.resetGame.bind(this);
         this.handleGuess = this.handleGuess.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleShake = this.handleShake.bind(this);
+        this.getLowestScore = this.getLowestScore.bind(this);
         
     }
     randomGeneratedNumber() {
@@ -24,19 +27,29 @@ class Game extends Component {
 
     handleGuess(event) {
         event.preventDefault();
-        const {userGuess, randomNumber, history} = this.state;
+        let {userGuess, randomNumber, history, guessCounter} = this.state;
+
+        if(userGuess === null || userGuess === '') {
+            return;
+        }
         if(userGuess < randomNumber) {
             this.setState({
-                gameInfo: 'Number is too low'
+                gameInfo: 'Number is too low',
+                guessCounter: guessCounter += 1
             });
         } else if (userGuess > randomNumber) {
             this.setState({
-                gameInfo: 'Number is too high'
+                gameInfo: 'Number is too high',
+                guessCounter: guessCounter += 1
             });
         } else {
             this.setState({
-                gameInfo: "You've guessed the number!"
+                gameInfo: "You've guessed the number!",
+                lowestScore: guessCounter += 1
+            }, () => {
+                this.getLowestScore(this.state.lowestScore);
             });
+            
         }
         this.setState({
             history: [userGuess, ...history]
@@ -57,6 +70,16 @@ class Game extends Component {
         });
     }
 
+    getLowestScore(score) {
+        const lowestScore = localStorage.getItem('lowestScore');
+        if(!lowestScore || lowestScore > score) {
+            localStorage.setItem('lowestScore', score);
+            this.setState({
+                lowestScore: score
+            });
+        }
+    }
+
 
     resetGame(event) {
         event.preventDefault();
@@ -65,22 +88,24 @@ class Game extends Component {
             history: [],
             randomNumber: this.randomGeneratedNumber(),
             userGuess: null,
-            gameInfo: null
+            gameInfo: null,
+            guessCounter: 0,
         });
     }
 
     render(){
         console.log('Current state is ', this.state);
-        const {userGuess, gameInfo, history, randomNumber, shake} = this.state;
+        const {userGuess, gameInfo, history, randomNumber, shake, guessCounter, lowestScore} = this.state;
         return (
-            <div className="text-center">
-                <h1 className="text-center my-3">Guess A Number Between 1-10</h1>
-                <form onSubmit={this.handleGuess} >
-                    <input onChange={this.handleInputChange} value={userGuess} type="number"/>
-                </form>
-                <button onClick={this.resetGame} className="btn btn-outline-danger btn-lg" type="button">Reset</button>
-                <button onClick={this.handleGuess} className="btn btn-outline-success btn-lg">Guess</button>
-                <h1 className ={"text-center my-3 " + ( shake ? 'shake' : '') }>{this.state.gameInfo}</h1>
+            <div className="text-center gameContainer">
+                <h2 className="text-center my-3">Guess A Number Between 1-10</h2>
+                <div onSubmit={this.handleGuess}>
+                    <input placeholder="Guess"  onChange={this.handleInputChange} value={userGuess} type="number" className="form-control form-control-lg user-input center-align"/>
+                </div>
+                <button onClick={this.resetGame} className="btn btn-outline-danger btn-lg buttons" type="button">Reset</button>
+                <button onClick={this.handleGuess} className="btn btn-outline-success btn-lg buttons">Guess</button>
+                <h2 className ={"text-center my-3 " + ( shake ? 'shake' : '') }>{this.state.gameInfo}</h2>
+                <p className="scoreTracker">{`Number of guesses: ${guessCounter} | Lowest Score: ${lowestScore}`}</p>
                 <History history={history} guessInfo={gameInfo} randomNumber={randomNumber} userGuess={userGuess}/>
             </div>
         )

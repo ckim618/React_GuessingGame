@@ -22,3 +22,22 @@
         transform: translate3d(10px, 0, 0);
     }
 }
+
+.buttons {
+    margin: 10px;
+}
+
+.buttons:hover {
+    cursor: pointer;
+}
+
+.user-input {
+    width: 30vw;
+    margin: auto;
+}
+.scoreTracker {
+    font-size: 1em
+}
+.gameContainer {
+    margin-top: 10%;
+}
