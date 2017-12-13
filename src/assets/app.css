@@ -6,3 +6,19 @@
     display: inline-block;
     
 }
+.shake {
+    animation: shake .75s;
+}
+@keyframes shake {
+    from, to {
+        transform: translate3d(0, 0, 0);
+    }
+
+    5%, 25%, 45%, 65%, 85% {
+        transform: translate3d(-10px, 0, 0);
+    }
+
+    10%, 20%, 40%, 60% {
+        transform: translate3d(10px, 0, 0);
+    }
+}

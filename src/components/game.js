@@ -14,6 +14,8 @@ class Game extends Component {
         this.resetGame = this.resetGame.bind(this);
         this.handleGuess = this.handleGuess.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleShake = this.handleShake.bind(this);
+        
     }
     randomGeneratedNumber() {
         const pickedNumber = Math.floor(Math.random()*10 + 1);
@@ -22,7 +24,7 @@ class Game extends Component {
 
     handleGuess(event) {
         event.preventDefault();
-        const {userGuess, randomNumber, history, gameInfo} = this.state;
+        const {userGuess, randomNumber, history} = this.state;
         if(userGuess < randomNumber) {
             this.setState({
                 gameInfo: 'Number is too low'
@@ -37,14 +39,21 @@ class Game extends Component {
             });
         }
         this.setState({
-            history: [...history, `${userGuess} | ${gameInfo}`]
+            history: [userGuess, ...history]
         })
+        this.handleShake();
     }
 
     handleInputChange(event) {
         event.preventDefault();
         this.setState({
             userGuess: event.target.value
+        });
+    }
+
+    handleShake() {
+        this.setState ({ shake: true }, () => {
+            setTimeout (() => this.setState ({ shake: false }), 1000);
         });
     }
 
@@ -62,7 +71,7 @@ class Game extends Component {
 
     render(){
         console.log('Current state is ', this.state);
-        const {userGuess, gameInfo, history, randomNumber} = this.state;
+        const {userGuess, gameInfo, history, randomNumber, shake} = this.state;
         return (
             <div className="text-center">
                 <h1 className="text-center my-3">Guess A Number Between 1-10</h1>
@@ -70,8 +79,8 @@ class Game extends Component {
                     <input onChange={this.handleInputChange} value={userGuess} type="number"/>
                 </form>
                 <button onClick={this.resetGame} className="btn btn-outline-danger btn-lg" type="button">Reset</button>
-                <button onClick={this.handleGuess}  className="btn btn-outline-success btn-lg">Guess</button>
-                <h1>{this.state.gameInfo}</h1>
+                <button onClick={this.handleGuess} className="btn btn-outline-success btn-lg">Guess</button>
+                <h1 className ={"text-center my-3 " + ( shake ? 'shake' : '') }>{this.state.gameInfo}</h1>
                 <History history={history} guessInfo={gameInfo} randomNumber={randomNumber} userGuess={userGuess}/>
             </div>
         )
