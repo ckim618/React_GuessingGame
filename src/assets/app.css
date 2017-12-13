@@ -1,0 +1,8 @@
+.guessHistory {
+    list-style: none;
+}
+.guessNumber, p {
+    font-size: 2rem;
+    display: inline-block;
+    
+}
