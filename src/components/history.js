@@ -3,6 +3,7 @@ import '../assets/app.css';
 
 export default (props) => {
     console.log(props)
+
     const savedGuess = props.history.map((value, index) => {
         return (
             <div>

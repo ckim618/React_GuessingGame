@@ -20,7 +20,7 @@ module.exports = {
         rules: [
             {
                 test: /\.js|.jsx?$/,
-                use: [ 'babel-loader' ],
+                use: ['babel-loader'],
                 exclude: /node_modules/
             },
             {
@@ -29,8 +29,12 @@ module.exports = {
             },
             {
                 test: /\.(gif|png|jpe?g|svg)$/i,
-                use: [ 'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
-                    'image-webpack-loader?bypassOnDebug' ]
+                use: ['file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+                    'image-webpack-loader?bypassOnDebug']
+            },
+            {
+                test: /\.(ttf|woff|woff2|eot|otf)$/,
+                use: ['file-loader']
             }
         ]
     },

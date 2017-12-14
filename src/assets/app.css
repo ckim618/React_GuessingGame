@@ -1,3 +1,16 @@
+@font-face {
+    font-family: 'southpark';
+    src: url('./fonts/southpark.ttf');
+}
+
+body{
+    font-family: 'southpark';
+    color: white;
+    background-image: url('./images/souptpark.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .guessHistory {
     list-style: none;
 }
@@ -25,6 +38,7 @@
 
 .buttons {
     margin: 10px;
+    font-family: 'southpark';
 }
 
 .buttons:hover {
@@ -40,4 +54,14 @@
 }
 .gameContainer {
     margin-top: 10%;
+    border-radius: 8px;
+    background-color: rgba( 0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: 100vh;
+    box-shadow: 5px 5px 5px black;
+}
+input {
+    font-family: 'southpark';    
 }

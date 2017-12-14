@@ -8,7 +8,7 @@
     "bundle": "node_modules/.bin/webpack --config webpack.deploy.config.js --progress --colors",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Scott Bowler",
+  "author": "Chris Kim",
   "license": "ISC",
   "repository": {
     "type": "git",
