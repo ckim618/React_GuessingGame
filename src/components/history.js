@@ -6,8 +6,8 @@ export default (props) => {
 
     const savedGuess = props.history.map((value, index) => {
         return (
-            <div>
-                <li key={index} className="guessNumber">{value}</li>               
+            <div key={index}>
+                <li className="guessNumber">{value}</li>               
             </div>
         )
     });

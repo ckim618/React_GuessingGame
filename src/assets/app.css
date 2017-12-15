@@ -3,6 +3,11 @@
     src: url('./fonts/southpark.ttf');
 }
 
+.allTimeScore {
+    font-size: 1rem;
+    color: rgb(255, 238, 0);
+}
+
 body{
     font-family: 'southpark';
     color: white;
@@ -10,17 +15,58 @@ body{
     background-size: cover;
 }
 
+.buttons {
+    margin: 10px;
+    font-family: 'southpark';
+}
+
+.buttons:hover {
+    cursor: pointer;
+}
+
+.gameContainer {
+    margin-top: 10%;
+    border-radius: 8px;
+    background-color: rgba( 0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: 100vh;
+    box-shadow: 5px 5px 5px black;
+}
+
+.gameInfoGreen {
+    color:  rgb(14, 197, 14);
+}
+
 .guessHistory {
     list-style: none;
 }
-.guessNumber, p {
-    font-size: 2rem;
+
+.guessNumber {
+       
+    width: 50vw;    
     display: inline-block;
-    
+    font-size: 2rem;
 }
+
+p {
+    font-size: 2rem;
+    display: inline-block;  
+}
+
+input {
+    font-family: 'southpark';    
+}
+
+.scoreTracker {
+    font-size: 1em
+}
+
 .shake {
     animation: shake .75s;
 }
+
 @keyframes shake {
     from, to {
         transform: translate3d(0, 0, 0);
@@ -35,37 +81,28 @@ body{
     }
 }
 
-.buttons {
-    margin: 10px;
-    font-family: 'southpark';
-}
-
-.buttons:hover {
-    cursor: pointer;
-}
-
 .user-input {
     width: 30vw;
     margin: auto;
 }
-.scoreTracker {
-    font-size: 1em
+
+@media screen and (max-width: 1025px) {
+   
+    .user-input {
+        width: 60vw;
+    }
 }
-.gameContainer {
-    margin-top: 10%;
-    border-radius: 8px;
-    background-color: rgba( 0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-size: 100vh;
-    box-shadow: 5px 5px 5px black;
-}
-input {
-    font-family: 'southpark';    
-}
-.guessNumber {
-    background-color: rgba( 0, 0, 0, 0.6);   
-    border-radius: 8px;
-    width: 50vw;    
+
+@media screen and (max-width: 320px) {
+
+    .guessNumber, p {
+        font-size: 1rem;
+    }
+    .scoreTracker {
+        font-size: .75rem;
+    }
+
+    .text-center {
+        font-size: 1.45rem;
+    }
 }
