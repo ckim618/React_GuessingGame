@@ -36,7 +36,7 @@ class Game extends Component {
     handleGuess(event) {
         event.preventDefault();
         //Used let because guesscounter is always changing based on outcome
-        let {userGuess, randomNumber, guessCounter} = this.state;
+        let {guessCounter, randomNumber, userGuess} = this.state;
 
         if(userGuess === null || userGuess === '') {
             return;
@@ -83,7 +83,7 @@ class Game extends Component {
     }
 
     inputHistoryArray() {
-        const {userGuess, historyInfo, history} = this.state;
+        const {history, historyInfo, userGuess} = this.state;
         this.setState({
             history: [`${userGuess} | ${historyInfo}`, ...history],
             userGuess: ''
@@ -91,13 +91,12 @@ class Game extends Component {
     }
 
     randomGeneratedNumber() {
-        const pickedNumber = Math.floor(Math.random()*10 + 1);
+        const pickedNumber = Math.floor(Math.random()*1000 + 1);
         return pickedNumber;
     }
 
     resetGame(event) {
         event.preventDefault();
-        console.log('Reset was clicked');
         this.setState({
             history: [],
             randomNumber: this.randomGeneratedNumber(),
@@ -110,11 +109,11 @@ class Game extends Component {
 
     render(){
         console.log('Current state is ', this.state);
-        const {userGuess, gameInfo, history, randomNumber, shake, guessCounter, lowestScore} = this.state;
+        const {gameInfo, guessCounter, history, lowestScore, randomNumber, shake, userGuess} = this.state;
         return (
             <div className="text-center gameContainer">
               <div className="infoContainer">
-                <h2 className="text-center my-3">Guess A Number Between 1-10</h2>
+                <h2 className="text-center my-3">Guess A Number Between 1-1000</h2>
                 <form onSubmit={this.handleGuess}>
                     <input 
                     placeholder="Guess"  

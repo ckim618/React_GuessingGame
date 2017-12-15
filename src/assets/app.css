@@ -6,8 +6,7 @@
 body{
     font-family: 'southpark';
     color: white;
-    background-image: url('./images/souptpark.jpg');
-    background-repeat: no-repeat;
+    background: url('./images/souptpark.jpg') no-repeat fixed;
     background-size: cover;
 }
 
@@ -64,4 +63,9 @@ body{
 }
 input {
     font-family: 'southpark';    
+}
+.guessNumber {
+    background-color: rgba( 0, 0, 0, 0.6);   
+    border-radius: 8px;
+    width: 50vw;    
 }
