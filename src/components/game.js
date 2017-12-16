@@ -7,9 +7,12 @@ class Game extends Component {
         super(props);
 
         this.state = {
+            allTimeAverage: localStorage.getItem('allTimeAverage') || 'Not Set',
             allTimeScore: localStorage.getItem('lowestScore') || 'Not Set',
+            disableButton: false,
             gameInfo: null,
             guessCounter: 0,
+            guessAverage: [],
             history: [],
             historyInfo: null,
             randomNumber: this.randomGeneratedNumber(),
@@ -21,6 +24,21 @@ class Game extends Component {
         this.handleShake = this.handleShake.bind(this);
         this.inputHistoryArray = this.inputHistoryArray.bind(this);
         this.resetGame = this.resetGame.bind(this);
+    }
+
+    getAverageScore() {
+        const {guessAverage} = this.state;
+        const sum = guessAverage.reduce((total, currentValue) => {
+            const totalNum = parseInt(total);
+            const currentVal = parseInt(currentValue)
+            return parseInt(totalNum + currentVal)
+        });
+        const arrayLength =  guessAverage.length;
+        const averageScore = Math.floor((sum/ arrayLength));
+        localStorage.setItem('allTimeAverage', averageScore)        
+        this.setState({
+            allTimeAverage: averageScore
+        });
     }
 
     getLowestScore(score) {
@@ -36,7 +54,7 @@ class Game extends Component {
     handleGuess(event) {
         event.preventDefault();
         //Used let because guesscounter is always changing based on outcome
-        let { guessCounter, randomNumber, userGuess } = this.state;
+        let { guessAverage, guessCounter, randomNumber, userGuess } = this.state;
 
         if (userGuess === null || userGuess === '') {
             return;
@@ -59,10 +77,17 @@ class Game extends Component {
             });
         } else {
             this.setState({
+                disableButton: true,
                 gameInfo: "You've guessed the number!",
-                guessCounter: guessCounter += 1
+                guessCounter: guessCounter += 1,
             }, () => {
-                this.getLowestScore(this.state.guessCounter);
+                this.setState({
+                    guessAverage: [`${this.state.guessCounter}`, ...guessAverage]                    
+                }, () => {
+                    this.getLowestScore(guessCounter);
+                    this.getAverageScore();
+                });
+             
             });
 
         }
@@ -98,6 +123,7 @@ class Game extends Component {
     resetGame(event) {
         event.preventDefault();
         this.setState({
+            disableButton: false,
             gameInfo: null,
             guessCounter: 0,
             history: [],
@@ -108,7 +134,7 @@ class Game extends Component {
 
     render() {
         console.log('Current state is ', this.state);
-        const { allTimeScore, gameInfo, guessCounter, history, shake, userGuess } = this.state;
+        const { allTimeAverage, allTimeScore, disableButton, gameInfo, guessCounter, history, shake, userGuess } = this.state;
         const correctNumber = "You've guessed the number!"
         return (
             <div className="text-center gameContainer">
@@ -122,8 +148,8 @@ class Game extends Component {
                             className="form-control form-control-lg user-input center-align"
                         />
                     </form>
-                    <button onClick={this.resetGame} className="btn btn-outline-danger btn-lg buttons" type="button">Reset</button>
-                    <button onClick={this.handleGuess} className="btn btn-outline-success btn-lg buttons">Guess</button>
+                    <button onClick={this.resetGame} className="btn btn-outline-danger btn-lg buttons" type="button">{disableButton ? 'Play Again' : 'Reset'}</button>
+                    <button onClick={this.handleGuess} className={"btn btn-outline-success btn-lg buttons" + (disableButton ? ' disabled' : '')}>Guess</button>
                     <h2 className={"text-center my-3 " + (gameInfo === correctNumber ? 'gameInfoGreen ' : '') + (shake ? 'shake' : '')}>{gameInfo}</h2>
                     <p className="scoreTracker">{`Number of guesses: ${guessCounter}`}</p>
                     <br />

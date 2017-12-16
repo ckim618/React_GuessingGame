@@ -1,15 +1,11 @@
 import React from 'react';
+import List from './list';
 import '../assets/app.css';
 
 export default (props) => {
-    console.log(props)
-
     const savedGuess = props.history.map((value, index) => {
-        return (
-            <div key={index}>
-                <li className="guessNumber">{value}</li>               
-            </div>
-        )
+
+        return  <List key={index} value={value}/>              
     });
 
     return (
