@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import History from './history';
+import GameContainer from './gameContainer';
 import '../assets/app.css';
 
 class Game extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
-            allTimeAverage: localStorage.getItem('allTimeAverage') || 'Not Set',
             allTimeScore: localStorage.getItem('lowestScore') || 'Not Set',
             disableButton: false,
             gameInfo: null,
             guessCounter: 0,
-            guessAverage: [],
             history: [],
             historyInfo: null,
             randomNumber: this.randomGeneratedNumber(),
@@ -26,21 +24,6 @@ class Game extends Component {
         this.resetGame = this.resetGame.bind(this);
     }
 
-    getAverageScore() {
-        const {guessAverage} = this.state;
-        const sum = guessAverage.reduce((total, currentValue) => {
-            const totalNum = parseInt(total);
-            const currentVal = parseInt(currentValue)
-            return parseInt(totalNum + currentVal)
-        });
-        const arrayLength =  guessAverage.length;
-        const averageScore = Math.floor((sum/ arrayLength));
-        localStorage.setItem('allTimeAverage', averageScore)        
-        this.setState({
-            allTimeAverage: averageScore
-        });
-    }
-
     getLowestScore(score) {
         const lowestScore = localStorage.getItem('lowestScore');
         if (!lowestScore || lowestScore > score) {
@@ -52,16 +35,21 @@ class Game extends Component {
     }
 
     handleGuess(event) {
-        event.preventDefault();
         //Used let because guesscounter is always changing based on outcome
-        let { guessAverage, guessCounter, randomNumber, userGuess } = this.state;
+        let { disableButton, guessCounter, randomNumber, userGuess } = this.state;
+
+        event.preventDefault();
+
+        if(disableButton) {
+            return;
+        }
 
         if (userGuess === null || userGuess === '') {
             return;
         }
         if (userGuess < randomNumber) {
             this.setState({
-                gameInfo: `${userGuess} is too low `,
+                gameInfo: `${parseInt(userGuess)} is too low `,
                 historyInfo: 'Too Low',
                 guessCounter: guessCounter += 1
             }, () => {
@@ -69,7 +57,7 @@ class Game extends Component {
             });
         } else if (userGuess > randomNumber) {
             this.setState({
-                gameInfo: `${userGuess} is too high`,
+                gameInfo: `${parseInt(userGuess)} is too high`,
                 historyInfo: 'Too High',
                 guessCounter: guessCounter += 1
             }, () => {
@@ -80,16 +68,10 @@ class Game extends Component {
                 disableButton: true,
                 gameInfo: "You've guessed the number!",
                 guessCounter: guessCounter += 1,
+                userGuess: ''
             }, () => {
-                this.setState({
-                    guessAverage: [`${this.state.guessCounter}`, ...guessAverage]                    
-                }, () => {
                     this.getLowestScore(guessCounter);
-                    this.getAverageScore();
                 });
-             
-            });
-
         }
         this.handleShake();
     }
@@ -102,21 +84,25 @@ class Game extends Component {
     }
 
     handleShake() {
-        this.setState({ shake: true }, () => {
-            setTimeout(() => this.setState({ shake: false }), 1000);
+        this.setState({ 
+            shake: true 
+        }, () => {
+            setTimeout(() => this.setState({ 
+                shake: false 
+            }), 1000);
         });
     }
 
     inputHistoryArray() {
         const { history, historyInfo, userGuess } = this.state;
         this.setState({
-            history: [`${userGuess} | ${historyInfo}`, ...history],
+            history: [`${parseInt(userGuess)} | ${historyInfo}`, ...history],
             userGuess: ''
         })
     }
 
     randomGeneratedNumber() {
-        const pickedNumber = Math.floor(Math.random() * 1000 + 1);
+        const pickedNumber = Math.floor(Math.random() * 10000 + 1);
         return pickedNumber;
     }
 
@@ -133,27 +119,23 @@ class Game extends Component {
     }
 
     render() {
-        console.log('Current state is ', this.state);
-        const { allTimeAverage, allTimeScore, disableButton, gameInfo, guessCounter, history, shake, userGuess } = this.state;
-        const correctNumber = "You've guessed the number!"
+        console.log(this.state.randomNumber)
+        const { allTimeScore, disableButton, gameInfo, guessCounter, history, shake, userGuess } = this.state;
+        const { handleGuess, handleInputChange, resetGame } = this;        
         return (
             <div className="text-center gameContainer">
                 <div className="infoContainer">
-                    <h2 className="text-center my-3">Guess A Number Between 1-1000</h2>
-                    <form onSubmit={this.handleGuess}>
-                        <input
-                            placeholder="Guess"
-                            onChange={this.handleInputChange}
-                            value={userGuess} type="number"
-                            className="form-control form-control-lg user-input center-align"
-                        />
-                    </form>
-                    <button onClick={this.resetGame} className="btn btn-outline-danger btn-lg buttons" type="button">{disableButton ? 'Play Again' : 'Reset'}</button>
-                    <button onClick={this.handleGuess} className={"btn btn-outline-success btn-lg buttons" + (disableButton ? ' disabled' : '')}>Guess</button>
-                    <h2 className={"text-center my-3 " + (gameInfo === correctNumber ? 'gameInfoGreen ' : '') + (shake ? 'shake' : '')}>{gameInfo}</h2>
-                    <p className="scoreTracker">{`Number of guesses: ${guessCounter}`}</p>
-                    <br />
-                    <p className="allTimeScore">{`All Time Lowest Score: ${allTimeScore}`}</p>
+                    <GameContainer
+                        allTimeScore={allTimeScore}
+                        disableButton={disableButton}
+                        gameInfo={gameInfo}
+                        guessCounter={guessCounter}
+                        handleGuess={handleGuess}
+                        handleInputChange={handleInputChange}
+                        resetGame={resetGame} 
+                        shake={shake}
+                        userGuess={userGuess}
+                    />
                     <History history={history} />
                 </div>
             </div>
