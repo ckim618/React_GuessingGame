@@ -29,7 +29,7 @@ body{
 }
 
 .gameContainer {
-    margin-top: 10%;
+    margin-top: 7%;
     border-radius: 8px;
     background-color: rgba( 0, 0, 0, 0.8);
     display: flex;
@@ -51,6 +51,14 @@ body{
     width: 50vw;    
     display: inline-block;
     font-size: 2rem;
+}
+
+#guessText {
+    color: #2196F3;;
+}
+
+#gameText {
+    color: rgb(224, 187, 240);
 }
 
 p {
@@ -84,6 +92,16 @@ input {
     }
 }
 
+.title {
+    color: black;
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+    font-size: 3em;
+    font-weight: bolder;
+    text-shadow: 2px 2px white;
+}
+
 .tooHigh {
     color:rgb(255, 0, 0);
 }
@@ -107,23 +125,35 @@ input {
     .user-input {
         width: 60vw;
     }
+    .title {
+        font-size: 2.5em;
+    }
 }
+
+@media screen and (max-width: 800px) {
+    
+     .title {
+         font-size: 2em;
+     }
+ }
+
+ @media screen and (max-width: 600px) {
+    
+     .title {
+        font-size: 1.5em;
+    }
+ }
+
 
 @media screen and (max-width: 460px) {
     
      .allTimeScore {
          font-size: .8rem;
      }
- }
-
- @media screen and (max-width: 460px){
-     
-    .allTimeScore {
-        font-size: .7rem;
+     .title {
+        font-size: 1.25em;
     }
-
  }
-
 
 @media screen and (max-width: 320px) {
 
@@ -140,5 +170,8 @@ input {
 
     .text-center {
         font-size: 1.45rem;
+    }
+    .title {
+        font-size: 1em;
     }
 }
