@@ -1,9 +1,9 @@
 import React from 'react';
-import Game from './game';
+import GameContainer from './gameContainer';
 
 const App = () => (
     <div className="container">
-        <Game />
+        <GameContainer />
     </div>
 );
 
