@@ -1,5 +1,5 @@
 import React from 'react';
-import List from './list';
+import List from './historyList';
 import '../assets/app.css';
 
 export default (props) => {

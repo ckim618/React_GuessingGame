@@ -119,7 +119,6 @@ class GameContainer extends Component {
     }
 
     render() {
-        console.log(this.state.randomNumber)
         const { allTimeScore, disableButton, gameInfo, guessCounter, history, shake, userGuess } = this.state;
         const { handleGuess, handleInputChange, resetGame } = this;        
         return (
