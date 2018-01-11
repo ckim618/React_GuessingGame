@@ -24,6 +24,12 @@ class GameContainer extends Component {
         this.resetGame = this.resetGame.bind(this);
     }
 
+/*******************************************************************
+ * getLowestScore - Checks and stores lowest score on local storage  
+ * @param: {score}
+ * @returns: {none}
+ ******************************************************************/
+
     getLowestScore(score) {
         const lowestScore = localStorage.getItem('lowestScore');
         if (!lowestScore || lowestScore > score) {
@@ -34,16 +40,20 @@ class GameContainer extends Component {
         }
     }
 
+/***********************************************************************************************
+ * handleGuess - Checks if number is too high or too low or correct and setstate to store info
+ * @param: {event}
+ * @returns: {none}
+ **********************************************************************************************/
+
     handleGuess(event) {
         //Used let because guesscounter is always changing based on outcome
         let { disableButton, guessCounter, randomNumber, userGuess } = this.state;
-
         event.preventDefault();
 
         if(disableButton) {
             return;
         }
-
         if (userGuess === null || userGuess === '') {
             return;
         }
@@ -76,12 +86,24 @@ class GameContainer extends Component {
         this.handleShake();
     }
 
+/**************************************************************************************
+ * handleInputChange - Adjust input value whenever a key is pressed in the input form
+ * @param: {event}
+ * @returns: {none}
+ **************************************************************************************/
+
     handleInputChange(event) {
         event.preventDefault();
         this.setState({
             userGuess: event.target.value
         });
     }
+
+/************************************************************************************************
+ * handleShake - Function to call if number is too high or low for div to have shake animation
+ * @param: {none}
+ * @returns: {none}
+ ************************************************************************************************/    
 
     handleShake() {
         this.setState({ 
@@ -92,6 +114,13 @@ class GameContainer extends Component {
             }), 1000);
         });
     }
+ 
+/****************************************************************************************
+ * inoutHistoryArray - Sets state of history into array that will be mapped through for 
+ * displaying user history of guesses. 
+ * @param: {none}
+ * @returns: {none}
+ ****************************************************************************************/    
 
     inputHistoryArray() {
         const { history, historyInfo, userGuess } = this.state;
@@ -101,13 +130,24 @@ class GameContainer extends Component {
         })
     }
 
+/******************************************************************************************
+ * randomGenteratedNumber - Randomly generates a number at the beginning of each new game
+ * @param: {none}
+ * @returns: {pickedNumber}
+ ******************************************************************************************/    
+
     randomGeneratedNumber() {
         const pickedNumber = Math.floor(Math.random() * 10000 + 1);
         return pickedNumber;
     }
 
-    resetGame(event) {
-        event.preventDefault();
+/***********************************************************************************************************
+ * resetGame - Sets state of all needed key pair values back to a new game and picks another random number.
+ * @param: {none}
+ * @returns: {none}
+ ***********************************************************************************************************/    
+
+    resetGame() {
         this.setState({
             disableButton: false,
             gameInfo: null,

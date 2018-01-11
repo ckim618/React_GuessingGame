@@ -4,7 +4,6 @@ import '../assets/app.css';
 
 export default (props) => {
     const savedGuess = props.history.map((value, index) => {
-
         return  <List key={index} value={value}/>              
     });
 
