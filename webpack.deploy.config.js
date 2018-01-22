@@ -11,10 +11,10 @@ module.exports = {
     context: resolve(__dirname, 'src'),
     module: {
         rules: [
-            {
-                test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-                loader: 'url-loader?limit=100000'
-            },
+            // {
+            //     test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+            //     loader: 'url-loader?limit=100000'
+            // },
             {
                 test: /\.js|.jsx?$/,
                 use: ['babel-loader'],
@@ -31,7 +31,12 @@ module.exports = {
             },
             {
                 test: /\.(ttf|woff|woff2|eot|otf)$/,
-                use: ['file-loader']
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        outputPath: 'assets/fonts/'
+                    }
+                }
             }
         ]
     },

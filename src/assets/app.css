@@ -8,7 +8,7 @@
     color: rgb(255, 238, 0);
 }
 
-body{
+body {
     font-family: 'southpark';
     color: white;
     background: url('./images/souptpark.jpg') no-repeat fixed;
@@ -40,7 +40,7 @@ body{
 }
 
 .gameInfoGreen {
-    color:  rgb(14, 197, 14);
+    color: rgb(14, 197, 14);
 }
 
 .guessHistory {
@@ -48,13 +48,14 @@ body{
 }
 
 .guessNumber {
-    width: 50vw;    
+    width: 50vw;
     display: inline-block;
     font-size: 2rem;
 }
 
 #guessText {
-    color: #2196F3;;
+    color: #2196F3;
+    ;
 }
 
 #gameText {
@@ -63,11 +64,11 @@ body{
 
 p {
     font-size: 2rem;
-    display: inline-block;  
+    display: inline-block;
 }
 
 input {
-    font-family: 'southpark';    
+    font-family: 'southpark';
 }
 
 .scoreTracker {
@@ -79,15 +80,21 @@ input {
 }
 
 @keyframes shake {
-    from, to {
+    from,
+    to {
         transform: translate3d(0, 0, 0);
     }
-
-    5%, 25%, 45%, 65%, 85% {
+    5%,
+    25%,
+    45%,
+    65%,
+    85% {
         transform: translate3d(-10px, 0, 0);
     }
-
-    10%, 20%, 40%, 60% {
+    10%,
+    20%,
+    40%,
+    60% {
         transform: translate3d(10px, 0, 0);
     }
 }
@@ -103,25 +110,24 @@ input {
 }
 
 .tooHigh {
-    color:rgb(255, 0, 0);
+    color: rgb(255, 0, 0);
 }
 
 .tooLow {
     color: rgb(0, 162, 255);
 }
 
-
 .user-input {
     width: 30vw;
     margin: auto;
 }
+
 
 /*********************************
 *         Media Queries          *
 *********************************/
 
 @media screen and (max-width: 1025px) {
-   
     .user-input {
         width: 60vw;
     }
@@ -131,43 +137,37 @@ input {
 }
 
 @media screen and (max-width: 800px) {
-    
-     .title {
-         font-size: 2em;
-     }
- }
+    .title {
+        font-size: 2em;
+    }
+}
 
- @media screen and (max-width: 600px) {
-    
-     .title {
+@media screen and (max-width: 600px) {
+    .title {
         font-size: 1.5em;
     }
- }
-
+}
 
 @media screen and (max-width: 460px) {
-    
-     .allTimeScore {
-         font-size: .8rem;
-     }
-     .title {
+    .allTimeScore {
+        font-size: .8rem;
+    }
+    .title {
         font-size: 1.25em;
     }
- }
+}
 
 @media screen and (max-width: 320px) {
-
     .allTimeScore {
         font-size: .6rem;
     }
-
-    .guessNumber, p {
+    .guessNumber,
+    p {
         font-size: 1rem;
     }
     .scoreTracker {
         font-size: .75rem;
     }
-
     .text-center {
         font-size: 1.45rem;
     }
