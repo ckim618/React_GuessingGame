@@ -1,5 +1,7 @@
-# Guessing Game made with React
+# South Park Guessing Game
 
-> This repo contains the base setup for creating a number guessing game in react
->
-> Setup instructions and feature sets can be found at <a href="http://reactprototypes.com/projects/guessing-game" target="_blank">http://reactprototypes.com/projects/guessing-game</a>
+# Technologies: React.js, JSX, and Materialize CSS
+
+# Description
+
+This project was built first using Javascript, but later converted using React.js framework.  Building a simple guessing game between the numbers of 1-10,000.  This project helped increase my knowledge of React.js and the use of updateing and saving state.  I also implemented the use of local storage to save users lowest score even when the application is closed and played at a later time. 
