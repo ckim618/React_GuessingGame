@@ -9,4 +9,4 @@ This project was built first using Javascript, but later converted using React.j
 
 #### Screen Shot
 
-![alt text](http://ckimcode.life/assets/img/portfolio/guessing-game.jpeg? "South Park Guessing Game")
+![alt text](http://ckimcode.life/assets/img/portfolio/guessing-game-original.jpeg? "South Park Guessing Game")
