@@ -4,6 +4,7 @@ import '../assets/app.css';
 export default (props) => {
     const { allTimeScore, disableButton, gameInfo, guessCounter, handleGuess, handleInputChange, resetGame, shake, userGuess } = props;
     const correctNumber = "You've guessed the number!";
+    console.log(props)
     return (
         <div>
             <h2 className="text-center my-3">Guess A Number Between 1-10,000</h2>
