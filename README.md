@@ -1,6 +1,6 @@
 # South Park Guessing Game
 
-## Technologies: React.js, JSX, and Materialize CSS
+## Technologies: React.js, JSX, and Bootstrap
 
 ### Description
 
